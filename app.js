@@ -1,15 +1,7 @@
-// const loadApi = () => {
-// const url = `https://openapi.programming-hero.com/api/phones?search=${searchText}`
-// fetch (url)
-// .then (res => res.json())
-// .then (data => console.log(data.data))
-// }
-
-// loadApi();
-
 const searchProducts = () =>{
     const searchField = document.getElementById('search-field');
-    const searchText = searchField.value;
+    const searchRaw = searchField.value;
+    const searchText = searchRaw.toLowerCase();
 
     searchField.value = '';
 
@@ -17,13 +9,22 @@ const searchProducts = () =>{
     // console.log(url);
     fetch (url)
     .then (res => res.json())
-    .then (data => displaySearchResults(data.data.slice(0, 20)))
+    .then (data => displaySearchResults(data))
 }
 
 const displaySearchResults =(products) => {
 const searchResult = document.getElementById('search-result');
-products.forEach(product => {
-    // console.log(product)
+searchResult.innerHTML = '';
+
+                     // error handle 
+
+if (products.status == false){
+    searchResult.textContent = '';
+    alert('No product found!');
+}
+else {
+products.data.slice(0, 20).forEach(product => {
+    console.log(product)
     const div = document.createElement('div');
     div.classList.add('col');
     div.innerHTML = `
@@ -37,33 +38,42 @@ products.forEach(product => {
     </div>
     `;
     searchResult.appendChild(div);
-})
+
+})}
 }
-const loadPhoneDetails = (phoneId) => {
+                // Phone details show 
+
+function loadPhoneDetails(phoneId) {
     const url = `https://openapi.programming-hero.com/api/phone/${phoneId}`;
-    fetch (url)
-    .then (res => res.json())
-    .then (data => displayPhoneDetails(data.data))
-const displayPhoneDetails = (phone) => {
-    console.log(phone.image);
-const infoContainer = document.getElementById('info-container');
-infoContainer.innerHTML = '';
-const div = document.createElement('div');
-div.classList.add('col');
-div.innerHTML =`
+        fetch(url)
+        .then(res => res.json())
+        .then(data => displayPhoneDetails(data.data));
+        
+    const displayPhoneDetails = (phone) => {
+        const infoContainer = document.getElementById('info-container');
+        infoContainer.textContent = '';
+        const div = document.createElement('div');
+        div.classList.add('col');
+        div.innerHTML = `
 <div class="card p-3 shadow-lg">
-    <img src="${phone.image}" class="card-img-top img-fluid w-50 mx-auto" alt="...">
+    <img src="${phone.image}" class="card-img-top img-fluid w-25 mx-auto" alt="...">
     <div class="card-body">
-        <p class="card-title"> <span class="fw-bold">Brand</span> : ${phone.brand}</p>
-        <p class="card-title"> <span class="fw-bold">Brand</span> : ${phone.name}</p>
-        <p class="card-title"> <span class="fw-bold">Brand</span> : ${phone.mainFeatures.chipSet}</p>
-        <p class="card-title"> <span class="fw-bold">Brand</span> : ${phone.mainFeatures.displaySize}</p>
-        <p class="card-title"> <span class="fw-bold">Brand</span> : ${phone.mainFeatures.memory}</p>
-        <p class="card-title"> <span class="fw-bold">Brand</span> : ${phone.mainFeatures.sensors}</p>
-        <p class="card-title"> <span class="fw-bold">Brand</span> : ${phone.releaseDate}</p>
+        <p class="card-text"> <span class="fw-bold">Brand</span> : ${phone.brand}</p>
+        <p class="card-text"> <span class="fw-bold">Name</span> : ${phone.name}</p>
+        <p class="card-text"> <span class="fw-bold">Chipset</span> : ${phone.mainFeatures.chipSet}</p>
+        <p class="card-text"> <span class="fw-bold">Display size</span> : ${phone.mainFeatures.displaySize}</p>
+        <p class="card-text"> <span class="fw-bold">Storage</span> : ${phone.mainFeatures.memory}</p>
+        <p class="card-text"> <span class="fw-bold">Sensors</span> : ${phone.mainFeatures.sensors}</p>
+        <p class="card-text"> <span class="fw-bold">Release Date</span> : ${phone.releaseDate}</p>
+        Others Features
+        <br>
+        <p class="card-text"> <span class="fw-bold">NFC</span> : ${phone.others.NFC}</p>
+        <p class="card-text"> <span class="fw-bold">Release Date</span> : ${phone.releaseDate}</p>
+        <p class="card-text"> <span class="fw-bold">Bluetooth</span> : ${phone.others.Bluetooth}</p>
+        <p class="card-text"> <span class="fw-bold">Radio</span> : ${phone.others.Radio}</p>
     </div>
 </div>
 `;
-infoContainer.appendChild(div);
-}
+        infoContainer.appendChild(div);
+    };
 }
