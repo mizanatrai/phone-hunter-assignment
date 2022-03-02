@@ -15,6 +15,8 @@ const searchProducts = () =>{
 const displaySearchResults =(products) => {
 const searchResult = document.getElementById('search-result');
 searchResult.innerHTML = '';
+const infoContainer = document.getElementById('info-container');
+infoContainer.textContent = '';
 
                      // error handle 
 
@@ -24,12 +26,11 @@ if (products.status == false){
 }
 else {
 products.data.slice(0, 20).forEach(product => {
-    console.log(product)
     const div = document.createElement('div');
     div.classList.add('col');
     div.innerHTML = `
     <div class="card">
-        <img src="${product.image}" class="card-img-top w-50 mx-auto" alt="...">
+        <img src="${product.image}" class="my-3 card-img-top w-50 mx-auto" alt="...">
             <div class="card-body custom-bg">
                 <h5 class="card-title">${product.phone_name}</h5>
                 <p class="card-text">Brand: ${product.brand}</p>
@@ -48,7 +49,7 @@ function loadPhoneDetails(phoneId) {
         fetch(url)
         .then(res => res.json())
         .then(data => displayPhoneDetails(data.data));
-        
+
     const displayPhoneDetails = (phone) => {
         const infoContainer = document.getElementById('info-container');
         infoContainer.textContent = '';
@@ -56,7 +57,7 @@ function loadPhoneDetails(phoneId) {
         div.classList.add('col');
         div.innerHTML = `
 <div class="card p-3 shadow-lg">
-    <img src="${phone.image}" class="card-img-top img-fluid w-25 mx-auto" alt="...">
+    <img src="${phone.image}"class="card-img-top img-fluid w-50 mx-auto" alt="...">
     <div class="card-body">
         <p class="card-text"> <span class="fw-bold">Brand</span> : ${phone.brand}</p>
         <p class="card-text"> <span class="fw-bold">Name</span> : ${phone.name}</p>
@@ -67,10 +68,10 @@ function loadPhoneDetails(phoneId) {
         <p class="card-text"> <span class="fw-bold">Release Date</span> : ${phone.releaseDate}</p>
         Others Features
         <br>
-        <p class="card-text"> <span class="fw-bold">NFC</span> : ${phone.others.NFC}</p>
-        <p class="card-text"> <span class="fw-bold">Release Date</span> : ${phone.releaseDate}</p>
-        <p class="card-text"> <span class="fw-bold">Bluetooth</span> : ${phone.others.Bluetooth}</p>
-        <p class="card-text"> <span class="fw-bold">Radio</span> : ${phone.others.Radio}</p>
+        <p class="card-text"> <span class="fw-bold">NFC</span> : ${phone?.others?.NFC}</p>
+        <p class="card-text"> <span class="fw-bold">GPS</span> : ${phone.GPS}</p>
+        <p class="card-text"> <span class="fw-bold">Bluetooth</span> : ${phone?.others?.Bluetooth}</p>
+        <p class="card-text"> <span class="fw-bold">Radio</span> : ${phone?.others?.Radio}</p>
     </div>
 </div>
 `;
