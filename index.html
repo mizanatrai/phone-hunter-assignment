@@ -10,20 +10,45 @@
 
     <title>GSM Arena</title>
 </head>
-<body class="bg-indigo-200">
+<body>
                         <!-- search box -->
 <h2 class="text-center text-success mt-3">Search your Smartphone here</h2>
-<div class="input-group mb-3 w-50 mx-auto">
+<div class="input-group mb-3 w-50 mx-auto d-flex justify-content-around">
     <input id="search-field" type="text" class="form-control text-center" placeholder="Product name here" aria-label="Recipient's username" aria-describedby="button-addon2">
     <button onclick="searchProducts()" class="btn btn-outline-danger" type="button" id="button-search">Button</button>
   </div>
+                    <!-- spinner loading -->
+    <div class="text-center">
+    <div class="spinner-grow text-primary" role="status">
+    <span class="visually-hidden">Loading...</span>
+     </div>
+    <div class="spinner-grow text-secondary" role="status">
+    <span class="visually-hidden">Loading...</span>
+     </div>
+     <div class="spinner-grow text-success" role="status">
+     <span class="visually-hidden">Loading...</span>
+       </div>
+         <div class="spinner-grow text-danger" role="status">
+     <span class="visually-hidden">Loading...</span>
+     </div>
+      <div class="spinner-grow text-warning" role="status">
+      <span class="visually-hidden">Loading...</span>
+    </div>
+    <div class="spinner-grow text-info" role="status">
+    <span class="visually-hidden">Loading...</span>
+    </div>
+      <div class="spinner-grow text-light" role="status">
+      <span class="visually-hidden">Loading...</span>
+     </div>
+    <div class="spinner-grow text-dark" role="status">
+    <span class="visually-hidden">Loading...</span>
+  </div>
+</div>
+<div id="info-container"></div>
                         <!-- search results -->
   <div id="search-result" class="row row-cols-1 row-cols-md-4 g-5">
   </div>
-
-    
-
-    <!-- Bootstrap js and plain js added here -->
+             <!-- Bootstrap js and plain js added here -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
 <script src="app.js"></script>
 </body>
